@@ -1,6 +1,12 @@
 # Deber para subir un archivo a Supabase
 
-**Nombre:** Mateo Torres
+**Nombres:** 
+
+Mateo Torres
+
+Anthony Astudillo
+
+---
 
 - Imagen de la aplicación:
 
