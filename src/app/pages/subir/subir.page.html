@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Subir Archivo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="subir-container">
+    <ion-item lines="none">
+      <input type="file" (change)="onFileSelected($event)" #fileInput hidden>
+      <ion-button expand="block" (click)="fileInput.click()" color="primary">
+        Seleccionar archivo
+      </ion-button>
+      <span class="nombre-archivo" *ngIf="file">{{ file.name }}</span>
+    </ion-item>
+
+    <ion-button expand="block" color="success" [disabled]="!file" (click)="subirArchivo()" class="boton-subir">
+      Subir archivo
+    </ion-button>
+
+    <div *ngIf="respuesta" class="respuesta">
+      <pre>{{ respuesta }}</pre>
+      <a *ngIf="urlArchivo" [href]="urlArchivo" target="_blank">Ver archivo</a>
+    </div>
+
+    <ion-button expand="block" color="medium" (click)="listarArchivos()">
+      Listar archivos
+    </ion-button>
+
+    <div class="tabla-archivos">
+      <table *ngIf="archivos.length > 0; else sinArchivos">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Tamaño (bytes)</th>
+            <th>Última modificación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let archivo of archivos">
+            <td>{{ archivo.name }}</td>
+            <td>{{ archivo.metadata?.size || '-' }}</td>
+            <td>{{ archivo.updated_at | date:'short' }}</td>
+            <td>
+              <ion-button fill="clear" color="primary" (click)="visualizarArchivo(archivo.name)">
+                Visualizar o descargar
+              </ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #sinArchivos>
+        <div class="sin-archivos">Sin archivos</div>
+      </ng-template>
+    </div>
+  </div>
+</ion-content>
